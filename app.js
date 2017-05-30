@@ -70,7 +70,7 @@ function verifyRequiredParams(request){
 }
 
 function verifyRequiredParamsDist(request){
-    request.assert('dist_name', 'dist_name field is required').notEmpty();
+    request.assert('dist', 'dist field is required').notEmpty();
 
     var errors = request.validationErrors();
     if (errors) {
@@ -115,7 +115,7 @@ function addDist(request,response,next){
     }
 
     models.Dist.create({
-        dist: request.params['dist_name'],
+        dist: request.params['dist'],
 
     }).then(function(dist) {
         var data = {
