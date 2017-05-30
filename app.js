@@ -70,7 +70,7 @@ function verifyRequiredParams(request){
 }
 
 function verifyRequiredParamsDist(request){
-    request.assert('dist', 'dist_name field is required').notEmpty();
+    request.assert('dist_name', 'dist_name field is required').notEmpty();
 
     var errors = request.validationErrors();
     if (errors) {
