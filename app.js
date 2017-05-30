@@ -69,6 +69,22 @@ function verifyRequiredParams(request){
     }
 }
 
+function verifyRequiredParamsDist(request){
+    request.assert('name', 'dist_name field is required').notEmpty();
+
+    var errors = request.validationErrors();
+    if (errors) {
+        error_messages = {
+            error: "true",
+            message : util.inspect(errors)
+        };
+
+        return false;
+    }else{
+        return true;
+    }
+}
+
 function addContact(request,response,next){
     if (!verifyRequiredParams(request)){
         response.send(422,error_messages);
@@ -85,6 +101,27 @@ function addContact(request,response,next){
             error: "false",
             message: "New contact created successfully",
             data: contact
+        };
+
+        response.send(data);
+        next();
+    });
+}
+
+function addDist(request,response,next){
+    if (!verifyRequiredParamsDist(request)){
+        response.send(422,error_messages);
+        return;
+    }
+
+    models.Dist.create({
+        name: request.params['dist_name'],
+
+    }).then(function(dist) {
+        var data = {
+            error: "false",
+            message: "New dist created successfully",
+            data: dist
         };
 
         response.send(data);
