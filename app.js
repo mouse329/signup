@@ -115,7 +115,7 @@ function addDist(request,response,next){
     }
 
     models.Dist.create({
-        dist: request.params['dist'],
+        dist: request.params['dist_name'],
 
     }).then(function(dist) {
         var data = {
