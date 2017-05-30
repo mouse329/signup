@@ -187,7 +187,7 @@ server.get('/api/v1/contacts',getAllContacts);
 server.get('/api/v1/dists',getAllDists);
 server.get('/api/v1/contacts/:id',getContact);
 server.post('/api/v1/contacts',addContact);
-server.post('/api/v1/dists',addContact);
+server.post('/api/v1/dists',addDist);
 server.put('/api/v1/contacts/:id',updateContact);
 server.del('/api/v1/contacts/:id',deleteContact);
 
