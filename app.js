@@ -32,6 +32,19 @@ function getAllDists(request,response,next){
     });
 }
 
+function getAllBranches(request,response,next){
+    models.Branch.findAll({})
+        .then(function(branches) {
+        var data = {
+            error: "false",
+            data: branches
+        };
+
+        response.send(data);
+        next();
+    });
+}
+
 function getContact(request,response,next){
 
     models.Contact.find({
@@ -69,8 +82,11 @@ function verifyRequiredParams(request){
     }
 }
 
-function verifyRequiredParamsDist(request){
-    request.assert('dist', 'dist field is required').notEmpty();
+function verifyRequiredParamsBranch(request){
+    request.assert('dist_id', 'dist_id field is required').notEmpty();
+    request.assert('name', 'branch_name field is required').notEmpty();
+    request.assert('address', 'address field is required').notEmpty();
+    request.assert('phone', 'phone field is required').notEmpty();
 
     var errors = request.validationErrors();
     if (errors) {
@@ -108,20 +124,23 @@ function addContact(request,response,next){
     });
 }
 
-function addDist(request,response,next){
-    if (!verifyRequiredParamsDist(request)){
+function addBranch(request,response,next){
+    if (!verifyRequiredParamsBranch(request)){
         response.send(422,error_messages);
         return;
     }
 
-    models.Dist.create({
-        dist: request.params['dist'],
+    models.Branch.create({
+        dist_id: request.params['dist_id'],
+        name: request.params['name'],
+        address: request.params['address'],
+        telephone: request.params['telephone'],
 
-    }).then(function(dist) {
+    }).then(function(branch) {
         var data = {
             error: "false",
             message: "New dist created successfully",
-            data: dist
+            data: branch
         };
 
         response.send(data);
